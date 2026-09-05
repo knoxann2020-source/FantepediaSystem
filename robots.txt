@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Disallow access to admin areas
+Disallow: /admin/
+Disallow: /config/
+Disallow: /extras/
+Disallow: /test_*.php
+Disallow: /check_*.php
+Disallow: /add_*.php
+Disallow: /create_*.php
+Disallow: /delete_*.php
+Disallow: /insert_*.php
+Disallow: /fix_*.php
+
+# Allow access to public content
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+# Sitemap - Update with your actual domain after deployment
+Sitemap: /sitemap.xml

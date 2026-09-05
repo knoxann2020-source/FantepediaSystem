@@ -1,0 +1,73 @@
+# Fantepedia - Localhost Configuration
+
+# Fantepedia - Localhost Configuration
+
+# Custom 404 error page
+
+ErrorDocument 404 /404.php
+
+# Enable rewrite engine
+
+RewriteEngine On
+
+# Default index file
+
+DirectoryIndex index.php
+
+# Prevent directory listing
+
+Options -Indexes
+
+# Rewrite all requests to index.php with query string
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?page=$1 [L,QSA]
+
+# Handle root URL
+
+RewriteRule ^$ index.php [L]
+
+# Increase POST / request-body limits to prevent Content-Length limit warnings
+
+# Apache (request body size)
+LimitRequestBody 300000000
+
+# PHP (post/upload limits) - applies when using mod_php
+php_value post_max_size 300M
+php_value upload_max_filesize 300M
+php_value memory_limit 512M
+
+# Security: Block access to sensitive files
+
+<Files "config/database.php">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<Files "config/constants.php">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<Files "config/ai-config.php">
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Allow localhost access to the above files (for development)
+
+# Comment out these lines in production
+
+
+<IfModule mod_authz_core.c>
+    <Files "config/database.php">
+        Require local
+    </Files>
+    <Files "config/constants.php">
+        Require local
+    </Files>
+    <Files "config/ai-config.php">
+        Require local
+    </Files>
+</IfModule>
